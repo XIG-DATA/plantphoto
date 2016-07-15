@@ -2,8 +2,11 @@ var http = require('http');
 var fs = require('fs');
 var debug = require('./debug.js').debug;
 var debugNL = require('./debug.js').debugNL;
+var EventProxy = require('eventproxy');
 
-photoid = 2380756;
+
+// photoid = 2380756;
+photoid = 2761650;
 
 var nameData = JSON.stringify({ "t": "latin", "pid": photoid, "l": 0.7412579082985606 });
 var placeData = JSON.stringify({ "t": 0.013138658221931943, "mid": '392639BD762CD4F1' });
@@ -72,7 +75,7 @@ var listOptions = {
 var imgOptions = {
     hostname: 'img.plantphoto.cn',
     port: 80,
-    path: '/image2/b/2380756.jpg',
+    path: '/image2/b/' + photoid + '.jpg',
     method: 'GET',
     headers: {
         'Host': 'img.plantphoto.cn',
@@ -89,30 +92,35 @@ var imgOptions = {
     }
 };
 
+var ep = EventProxy.create('name', 'place', 'list', 'image', function (name, place, list, imageName) {
+    console.log('PhotoId', photoid);
+    console.log('Name', name);
+    console.log('Place', place);
+    console.log('List', list);
+    console.log('ImageName', imageName);
+});
+
 http.get(nameOptions, function(res) {
-    debugNL("\nName: " + res.statusCode);
     res.on("data", function(chunk) {
-        debugNL("   name: " + chunk);
+        ep.emit('name', chunk.toString());
     });
 });
 
 http.get(placeOptions, function(res) {
-    debugNL("\nPlace: " + res.statusCode);
     res.on("data", function(chunk) {
-        debugNL("   place: " + chunk);
+        ep.emit('place', chunk.toString());
     });
 });
 
 http.get(listOptions, function(res) {
-    debugNL("\nList: " + res.statusCode);
     res.on("data", function(chunk) {
-        debugNL("   list: " + chunk);
+        ep.emit('list', chunk.toString());
     });
 });
 
 debugNL(' -- Start fetching image ' + photoid + ' -- ');
 http.get(imgOptions, function(res) {
-    debugNL('SYN', res.statusCode, res.statusMessage);
+    console.log('SYN', res.statusCode, res.statusMessage);
 
     var data = new Buffer('');
     res.on('data', function(chunk) {
@@ -123,11 +131,13 @@ http.get(imgOptions, function(res) {
 
     res.on('end', function() {
         debugNL('\nFinish: image size', data.length);
-        fs.writeFile(photoid + '.png', data, function(err) {
+        var filename = photoid + '.jpg';
+        fs.writeFile(filename, data, function(err) {
             if (err) {
                 debugNL('Failed to get ' + photoid);
             } else {
                 debugNL('Fetch image' + photoid + ' successfully\n');
+                ep.emit('image', filename);
             }
         });
     });
