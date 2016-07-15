@@ -5,3 +5,7 @@
 * superagent
 * eventproxy
 
+
+bug:
+mid (fetching places)
+
