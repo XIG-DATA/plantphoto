@@ -1,0 +1,27 @@
+{
+  "name": "plantphoto",
+  "version": "0.0.1",
+  "description": "photos on plantphoto.cn",
+  "main": "main.js",
+  "dependencies": {
+    "eventproxy": "^0.3.4",
+    "superagent": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XIG-DATA/plantphoto.git"
+  },
+  "keywords": [
+    "Crawler"
+  ],
+  "author": "Zhenfei Nie <youyis2fox@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/XIG-DATA/plantphoto/issues"
+  },
+  "homepage": "https://github.com/XIG-DATA/plantphoto#readme"
+}
