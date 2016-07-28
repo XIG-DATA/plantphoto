@@ -1,3 +1,5 @@
+// This is only for testing
+// It only uses basic API
 var http = require('http');
 var fs = require('fs');
 var debug = require('./debug.js').debug;

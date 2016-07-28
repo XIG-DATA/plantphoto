@@ -1,3 +1,5 @@
+// This is depreciated
+// Third party logging library instead
 var debugMode = true;
 module.exports = {
     disableDebug: function() {

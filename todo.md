@@ -1,11 +1,3 @@
-1. Check if image exists
-2. use async lib 
-
--- https://github.com/alsotang/node-lessons/tree/master/lesson4
-* superagent
-* eventproxy
-
-
-bug:
-mid (fetching places)
-
+1. Download if image doesn't exists
+2. Third party logging library
+3. Use promise
