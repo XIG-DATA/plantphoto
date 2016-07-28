@@ -18,6 +18,7 @@ var ep = EventProxy.create('name', 'place', 'list', 'image', function (name, pla
     console.log('ImageName', imageName);
 });
 
+// Get name of this plant
 superagent
     .get('www.plantphoto.cn/ashx/getotherinfo.ashx')
     .query({ 't': 'latin' })
@@ -41,6 +42,9 @@ superagent
         }
     });
 
+// To fetch the place information, the `mid` is required
+// Wait until we get the `mid` 
+// PS: `mid` is a variable used in the source code of plantphoto.cn
 var ep_mid = EventProxy.create('photo_mid', function(photo_mid) {
     if (photo_mid === null) {
         ep.emit('place', 'cannot get photo_mid');
@@ -68,7 +72,7 @@ var ep_mid = EventProxy.create('photo_mid', function(photo_mid) {
         });
 });
 
-// get photo_mid
+// get photo_mid (mid)
 superagent
     .get('http://www.plantphoto.cn/tu/' + photoid)
     .end(function (err, res) {
@@ -88,7 +92,7 @@ superagent
         ep_mid.emit('photo_mid', photo_mid);
     });
 
-
+// Get a list of photos related to the current photo (photoId)
 superagent
     .get('www.plantphoto.cn/ashx/getotherinfo.ashx')
     .query({ 't': 'photo' })
@@ -112,6 +116,7 @@ superagent
         }
     });
 
+// Get the image
 superagent
     .get('img.plantphoto.cn/image2/b/' + photoid + '.jpg')
     .set('Host', 'img.plantphoto.cn')
@@ -142,8 +147,3 @@ superagent
         });
         }
     });
-
-
-
-
-  
