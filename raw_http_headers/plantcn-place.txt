@@ -1,0 +1,13 @@
+GET /ashx/memberinfomd5.ashx?t=0.013138658221931943&mid=392639BD762CD4F1 HTTP/1.1
+Host: www.plantphoto.cn
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
+Accept: application/json, text/javascript, */*; q=0.01
+Referer: http://www.plantphoto.cn/tu/2380756
+Accept-Language: en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4,zh-TW;q=0.2
+Accept-Encoding: gzip, deflate, sdch
+Cookie: AJSTAT_ok_pages=2; AJSTAT_ok_times=1
+X-Requested-With: XMLHttpRequest
+
