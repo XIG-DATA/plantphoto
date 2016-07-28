@@ -37,7 +37,6 @@ superagent
         if (err) {
             console.log(err);
         } else {
-            // console.log('Name', res.text);
             ep.emit('name', res.text);
         }
     });
@@ -111,7 +110,6 @@ superagent
         if (err) {
             console.log(err);
         } else {
-            // console.log('List', res.text);
             ep.emit('list', res.text);
         }
     });
@@ -135,15 +133,12 @@ superagent
             console.log(err);
         } else {
             var filename = photoid + '.jpg';
-            // console.log('Image', filename);
-
             fs.writeFile(filename, res.body, function(err) {
-            if (err) {
-                console.log('Failed to get ' + photoid);
-            } else {
-                // console.log('Fetch image ' + photoid + ' successfully\n');
-                ep.emit('image', filename);
-            }
-        });
+                if (err) {
+                    console.log('Failed to get ' + photoid);
+                } else {
+                    ep.emit('image', filename);
+                }
+            });
         }
     });
