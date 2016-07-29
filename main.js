@@ -6,7 +6,8 @@ var superagent = require('superagent');
 var debug = require('./debug.js').debug;
 var debugNL = require('./debug.js').debugNL;
 
-var photoid = 140491;
+// var photoid = 140491;
+var photoid = 1236620;
 
 var referer = 'http://www.plantphoto.cn/tu/' + photoid;
 
@@ -80,7 +81,7 @@ superagent
             return;
         }
         var photo_mid_pattern = /var photo_mid = \"([0-9A-Za-z]+)\";/;
-        var result = photo_mid_pattern.exec('var photo_mid = "5C1E6927C98647ED";');
+        var result = photo_mid_pattern.exec(res.text);
         if (result === null) {
             console.error('cannot find mid');
             ep_mid.emit('photo_mid', null);
