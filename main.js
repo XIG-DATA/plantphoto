@@ -8,44 +8,44 @@ var debugNL = require('./debug.js').debugNL;
 
 //var photoid = 899102;
 
-var ep = EventProxy.create('name', 'place', 'list', 'image', function (name, place, list, imageName) {
-    console.log('PhotoId', photoid);
-    console.log('Name', name);
-    console.log('Place', place);
-    console.log('List', list);
-    console.log('ImageName', imageName);
-});
+var getAll = function(photoid){
 
-var ep_mid = EventProxy.create('photo_mid', function(photo_mid) {
-    if (photo_mid === null) {
-        ep.emit('place', 'cannot get photo_mid');
-        return;
-    }
-    superagent
-        .get('www.plantphoto.cn/ashx/memberinfomd5.ashx')
-        .query({ 't': '0.013138658221931943' })
-        .query({ 'mid': photo_mid })
-        .set('Host', 'www.plantphoto.cn')
-        .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36')
-        .set('Accept-Language', 'en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4,zh-TW;q=0.2')
-        .set('Accept-Encoding', 'gzip, deflate, sdch')
-        .set('Cookie', 'AJSTAT_ok_pages=2; AJSTAT_ok_times=1')
-        .set('X-Requested-With', 'XMLHttpRequest')
-        .set('Pragma', 'no-cache')
-        .set('Cache-Control', 'no-cache')
-        .set('Connection', 'keep-alive')
-        .end(function(err, res){
-            if (err) {
-                console.log(err);
-            } else {
-                ep.emit('place', res.text);
-            }
-        });
-});
+    var ep_mid = EventProxy.create('photo_mid', function(photo_mid) {
+        if (photo_mid === null) {
+            ep.emit('place', 'cannot get photo_mid');
+            return;
+        }
+        superagent
+            .get('www.plantphoto.cn/ashx/memberinfomd5.ashx')
+            .query({ 't': '0.013138658221931943' })
+            .query({ 'mid': photo_mid })
+            .set('Host', 'www.plantphoto.cn')
+            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36')
+            .set('Accept-Language', 'en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4,zh-TW;q=0.2')
+            .set('Accept-Encoding', 'gzip, deflate, sdch')
+            .set('Cookie', 'AJSTAT_ok_pages=2; AJSTAT_ok_times=1')
+            .set('X-Requested-With', 'XMLHttpRequest')
+            .set('Pragma', 'no-cache')
+            .set('Cache-Control', 'no-cache')
+            .set('Connection', 'keep-alive')
+            .end(function(err, res){
+                if (err) {
+                    console.log(err);
+                } else {
+                    ep.emit('place', res.text);
+                }
+            });
+    });
 
-var listImage = []
 
-for(var photoid = 10; photoid < 20; photoid++){
+
+    var ep = EventProxy.create('name', 'place', 'list', 'image', function (name, place, list, imageName) {
+        console.log('PhotoId', photoid);
+        console.log('Name', name);
+        console.log('Place', place);
+        console.log('List', list);
+        console.log('ImageName', imageName);
+    });
     var referer = 'http://www.plantphoto.cn/tu/' + photoid;
     superagent
         .get('www.plantphoto.cn/ashx/getotherinfo.ashx')
@@ -149,7 +149,6 @@ for(var photoid = 10; photoid < 20; photoid++){
 
 
 
-
-
-
-
+module.exports = {
+    getAll: getAll
+}
