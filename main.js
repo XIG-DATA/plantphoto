@@ -43,11 +43,10 @@ var ep_mid = EventProxy.create('photo_mid', function(photo_mid) {
         });
 });
 
+var listImage = []
 
 for(var photoid = 10; photoid < 20; photoid++){
     var referer = 'http://www.plantphoto.cn/tu/' + photoid;
-
-
     superagent
         .get('www.plantphoto.cn/ashx/getotherinfo.ashx')
         .query({ 't': 'latin' })
@@ -71,8 +70,6 @@ for(var photoid = 10; photoid < 20; photoid++){
             }
         });
 
-
-
     // get photo_mid
     superagent
         .get('http://www.plantphoto.cn/tu/' + photoid)
@@ -82,7 +79,7 @@ for(var photoid = 10; photoid < 20; photoid++){
                 return;
             }
             var photo_mid_pattern = /var photo_mid = \"([0-9A-Za-z]+)\";/;
-            var result = photo_mid_pattern.exec('var photo_mid = ' + res.text + ';');
+            var result = photo_mid_pattern.exec(res.text);
             if (result === null) {                                
                 console.error('cannot find mid');
                 ep_mid.emit('photo_mid', null);
