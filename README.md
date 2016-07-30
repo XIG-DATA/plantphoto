@@ -8,5 +8,10 @@ Main file: main.js
 ### Get start
 ```js
     npm install
-    node run.js
+    node test.js
 ```
+
+### Features 
+	1. asynchronously  downloading
+	2. Fetch images, location, other information, name 
+	
