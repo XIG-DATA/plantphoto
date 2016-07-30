@@ -41,10 +41,10 @@ var getAll = function(photoid){
 
     var ep = EventProxy.create('name', 'place', 'list', 'image', function (name, place, list, imageName) {
         console.log('PhotoId', photoid);
-        // console.log('Name', name);
-        // console.log('Place', place);
-        // console.log('List', list);
-        // console.log('ImageName', imageName);
+        console.log('Name', name);
+        console.log('Place', place);
+        console.log('List', list);
+        console.log('ImageName', imageName);
     });
     var referer = 'http://www.plantphoto.cn/tu/' + photoid;
     superagent
