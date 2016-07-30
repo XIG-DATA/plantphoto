@@ -8,5 +8,5 @@ Main file: main.js
 ### Get start
 ```js
     npm install
-    node main.js
+    node run.js
 ```
